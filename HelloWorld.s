@@ -13,7 +13,8 @@
 
 _start: mov X0, #1     // 1 = StdOut
         adr X1, helloworld // string to print
-        mov X2, #13     // length of our string
+        adr X2, helloworldLength // put address of helloworldLength to X2
+        ldr X2, [X2] // read value at address consisted in X2 and put it to X2
         mov X16, #4     // MacOS write system call
         svc 0     // Call linux to output the string
 
@@ -24,4 +25,6 @@ _start: mov X0, #1     // 1 = StdOut
         mov     X16, #1     // Service command code 1 terminates this program
         svc     0           // Call MacOS to terminate the program
 
-helloworld:      .ascii  "Hello World!\n"
+helloworldLength:       .dword 13
+helloworld:             .ascii  "Hello World!\n"
+
