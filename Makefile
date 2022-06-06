@@ -1,13 +1,13 @@
 prepareDir:
 	mkdir -p build
 
-link: HelloWorld.o
-	ld -o build/HelloWorld build/HelloWorld.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64 
-
-asm: HelloWorld.s
+assemble:
 	as -o build/HelloWorld.o HelloWorld.s
 
-build: prepareDir asm link
+link:
+	ld -o build/HelloWorld build/HelloWorld.o -lSystem -syslibroot `xcrun -sdk macosx --show-sdk-path` -e _start -arch arm64
+
+build: prepareDir assemble link
 
 clean:
 	rm -rf build
